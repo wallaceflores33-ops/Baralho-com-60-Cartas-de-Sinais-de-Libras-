@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baralho de Sinais de Libras por Categoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #172341;
+    --navy-soft: #202f57;
+    --paper: #FAF6EC;
+    --paper-dim: #F1ECDE;
+    --ink: #1B2333;
+    --ink-soft: #4B5468;
+    --gold: #E3A72B;
+    --coral: #DD5B2A;
+    --teal: #2E9C8C;
+    --purple: #7C5CBF;
+    --blue: #3D72B4;
+    --green: #4B9A5C;
+    --line: rgba(23,35,65,0.12);
+    --radius: 3px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Karla', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0;
+    color:var(--navy);
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--coral);
+    color:#fff;
+    font-family:'Karla', sans-serif;
+    font-weight:700;
+    font-size:17px;
+    padding:16px 30px;
+    border-radius:999px;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    box-shadow: 0 6px 0 #A9401A;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{ transform: translateY(2px); box-shadow: 0 4px 0 #A9401A; }
+  .btn:active{ transform: translateY(6px); box-shadow: 0 0 0 #A9401A; }
+  .btn:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; }
+
+  .btn-ghost{
+    background:transparent;
+    color:var(--navy);
+    box-shadow:none;
+    border:2px solid var(--navy);
+    padding:14px 28px;
+  }
+  .btn-ghost:hover{ transform:none; box-shadow:none; background: rgba(23,35,65,0.06);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background: radial-gradient(120% 140% at 15% 0%, var(--navy-soft) 0%, var(--navy) 55%);
+    color:#fff;
+    padding: 64px 0 0;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap:40px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'Karla', sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--gold);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    color:#fff;
+    font-size:clamp(34px, 4.2vw, 50px);
+    line-height:1.12;
+    font-weight:600;
+  }
+  .hero p.sub{
+    color:#D8DCEA;
+    font-size:18px;
+    max-width:46ch;
+    margin:22px 0 30px;
+  }
+  .hero-art{
+    position:relative;
+    align-self:end;
+  }
+  .hero-art img{
+    width:100%;
+    filter: drop-shadow(0 30px 40px rgba(0,0,0,0.35));
+  }
+  .hero-price-tag{
+    position:absolute;
+    top:6%;
+    right:2%;
+    background:var(--gold);
+    color:var(--navy);
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:15px;
+    border-radius:50%;
+    width:96px;
+    height:96px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    line-height:1.15;
+    transform: rotate(9deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+  .hero-price-tag span{ font-size:23px; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 78px 0; }
+  .section-head{ max-width: 640px; margin-bottom: 44px; }
+  .section-head h2{ font-size: clamp(26px, 3vw, 34px); }
+  .section-head p{ color:var(--ink-soft); font-size:17px; margin-top:14px; }
+
+  .kicker{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-weight:500;
+    color: var(--coral);
+    font-size: 20px;
+    margin-bottom:10px;
+  }
+
+  /* ---------- STEPS (O que é isso) ---------- */
+  .steps{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:20px;
+  }
+  .step{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding:26px 22px;
+    position:relative;
+  }
+  .step .num{
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    font-weight:600;
+    color:var(--coral);
+    margin-bottom:14px;
+    display:block;
+  }
+  .step h3{ font-size:18px; margin-bottom:8px; }
+  .step p{ color:var(--ink-soft); font-size:15.5px; margin:0; }
+
+  /* ---------- CATEGORY CARDS (fan of flashcards) ---------- */
+  .categories{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:18px;
+  }
+  .cat-card{
+    background:#fff;
+    border-radius: 4px 14px 14px 4px;
+    border:1px solid var(--line);
+    border-left: 8px solid var(--cat-color, var(--coral));
+    padding:22px 24px;
+  }
+  .cat-card .tag{
+    font-family:'Karla',sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    color: var(--cat-color, var(--coral));
+    margin-bottom:8px;
+  }
+  .cat-card h3{ font-size:19px; margin-bottom:6px; }
+  .cat-card p{ color:var(--ink-soft); font-size:15px; margin:0; }
+
+  /* ---------- PRA QUEM É (checklist) ---------- */
+  .who{
+    background:var(--navy);
+    color:#fff;
+    border-radius: 4px;
+  }
+  .who .wrap{ padding: 78px 28px; }
+  .who .section-head h2{ color:#fff; }
+  .who .section-head p{ color:#C7CBDD; }
+  .checklist{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 40px;
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .checklist li{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    font-size:16px;
+    color:#E7E9F2;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .checklist li svg{ flex:none; margin-top:3px; }
+
+  /* ---------- COMO FUNCIONA ---------- */
+  .how{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:24px;
+    counter-reset: how;
+  }
+  .how-item{ position:relative; padding-left:52px; }
+  .how-item::before{
+    counter-increment: how;
+    content: counter(how);
+    position:absolute;
+    left:0; top:0;
+    width:36px; height:36px;
+    border-radius:50%;
+    background: var(--paper-dim);
+    border:2px solid var(--navy);
+    color:var(--navy);
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+  }
+  .how-item h3{ font-size:18px; margin-bottom:6px; }
+  .how-item p{ color:var(--ink-soft); font-size:15.5px; margin:0; }
+
+  /* ---------- O QUE VOCÊ RECEBE ---------- */
+  .receive{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius: 4px;
+    padding: 40px 44px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 40px;
+  }
+  .receive li{
+    list-style:none;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    font-size:16px;
+    padding: 6px 0;
+  }
+  .receive li svg{ flex:none; margin-top:4px; color: var(--teal); }
+
+  /* ---------- BONUS ---------- */
+  .bonuses{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:24px;
+  }
+  .bonus{
+    border: 2px solid var(--gold);
+    background: linear-gradient(180deg, #FFF9EB 0%, #FFF 60%);
+    border-radius: 4px;
+    padding: 30px 28px;
+    position:relative;
+  }
+  .bonus .badge{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy);
+    font-weight:800;
+    font-size:12.5px;
+    padding: 5px 12px;
+    border-radius:999px;
+    margin-bottom: 16px;
+  }
+  .bonus h3{ font-size:20px; margin-bottom:10px; }
+  .bonus p{ color:var(--ink-soft); font-size:15.5px; }
+  .bonus .price-row{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-top:16px;
+    font-family:'Fraunces', serif;
+  }
+  .bonus .price-row .old{ text-decoration: line-through; color:#9A9585; font-size:15px; }
+  .bonus .price-row .new{ color:var(--coral); font-weight:700; font-size:16px; }
+
+  /* ---------- OFERTA FINAL ---------- */
+  .offer{
+    background: var(--navy);
+    border-radius: 4px;
+    color:#fff;
+    padding: 56px 48px;
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items:center;
+  }
+  .offer h2{ color:#fff; font-size: clamp(24px,3vw,30px); margin-bottom:20px; }
+  .offer-list{ list-style:none; padding:0; margin:0 0 26px; }
+  .offer-list li{
+    display:flex; gap:10px; align-items:flex-start;
+    font-size:15.5px; color:#DDE0EE;
+    padding:7px 0;
+  }
+  .offer-list li svg{ flex:none; margin-top:3px; color:var(--gold);}
+  .price-box{
+    background:#fff;
+    color:var(--ink);
+    border-radius:4px;
+    padding:34px 30px;
+    text-align:center;
+  }
+  .price-box .from{
+    color:#9A9585;
+    text-decoration:line-through;
+    font-size:16px;
+  }
+  .price-box .to{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:52px;
+    color:var(--coral);
+    margin: 4px 0 4px;
+    line-height:1;
+  }
+  .price-box .to sup{ font-size:22px; top:-1.2em; }
+  .price-box .installment{ color:var(--ink-soft); font-size:14px; margin-bottom:20px; }
+  .price-box .btn{ width:100%; justify-content:center; }
+  .guarantee{
+    display:flex; align-items:center; gap:10px;
+    justify-content:center;
+    margin-top:18px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+
+  footer{
+    text-align:center;
+    padding: 36px 0 50px;
+    color: var(--ink-soft);
+    font-size:14px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 880px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-art{ order:-1; max-width:420px; margin:0 auto; }
+    .steps{ grid-template-columns: 1fr 1fr; }
+    .categories{ grid-template-columns: 1fr; }
+    .checklist{ grid-template-columns: 1fr; }
+    .how{ grid-template-columns: 1fr; }
+    .receive{ grid-template-columns: 1fr; padding: 32px 26px; }
+    .bonuses{ grid-template-columns: 1fr; }
+    .offer{ grid-template-columns: 1fr; padding: 36px 26px; }
+  }
+  @media (max-width: 520px){
+    .steps{ grid-template-columns: 1fr; }
+    section{ padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Baralho imprimível · 6 categorias · Entrega imediata</div>
+      <h1>Baralho com 60 Cartas de Sinais de Libras por Categoria para Aprender de Forma Fácil e Prática</h1>
+      <p class="sub">60 cartas com sinais organizados por tema — cumprimentos, família, alimentos, sentimentos, rotina e lugares. Cada carta com o sinal ilustrado e a palavra. Embaralha, tira uma carta e pratica.</p>
+      <a class="btn" href="#oferta">Quero o baralho — R$ 9,90</a>
+    </div>
+    <div class="hero-art">
+      <img src="mockup.png" alt="Baralho de Sinais de Libras por Categoria: caixa, cartas ilustradas em leque, cartaz do alfabeto manual e visualização em tablet">
+      <div class="hero-price-tag">de R$44,60<br><span>R$9,90</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="o-que-e">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Não é dicionário de sinais solto</div>
+        <h2>É um baralho pra praticar de verdade</h2>
+        <p>Você não precisa ficar pausando vídeo pra treinar um sinal novo. O Baralho de Sinais de Libras é um PDF de 60 cartas — você imprime, recorta e embaralha. Cada carta traz um sinal ilustrado, a palavra correspondente e a categoria a que pertence.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num">01</span>
+          <h3>Escolhe a categoria</h3>
+          <p>Cumprimentos, família, alimentos, sentimentos, rotina ou lugares.</p>
+        </div>
+        <div class="step">
+          <span class="num">02</span>
+          <h3>Embaralha e tira uma carta</h3>
+          <p>Sinal aleatório, categoria marcada — você sabe na hora o que está praticando.</p>
+        </div>
+        <div class="step">
+          <span class="num">03</span>
+          <h3>Pratica com apoio visual</h3>
+          <p>A ilustração mostra a configuração de mão exata, sem depender de vídeo.</p>
+        </div>
+        <div class="step">
+          <span class="num">04</span>
+          <h3>Repete ou troca de carta</h3>
+          <p>Não gravou ainda, embaralha de novo. Quer fixar, repete a mesma carta até dominar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="categorias" style="background:var(--paper-dim);">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">6 categorias, 10 cartas em cada uma</div>
+        <h2>O que vem no baralho</h2>
+      </div>
+      <div class="categories">
+        <div class="cat-card" style="--cat-color:var(--coral)">
+          <div class="tag">10 CARTAS</div>
+          <h3>Cumprimentos e Apresentação</h3>
+          <p>Os sinais essenciais pra qualquer primeira conversa.</p>
+        </div>
+        <div class="cat-card" style="--cat-color:var(--teal)">
+          <div class="tag">10 CARTAS</div>
+          <h3>Família</h3>
+          <p>Vínculos familiares em sinais.</p>
+        </div>
+        <div class="cat-card" style="--cat-color:var(--gold)">
+          <div class="tag">10 CARTAS</div>
+          <h3>Alimentos</h3>
+          <p>Vocabulário do dia a dia relacionado à comida.</p>
+        </div>
+        <div class="cat-card" style="--cat-color:var(--purple)">
+          <div class="tag">10 CARTAS</div>
+          <h3>Sentimentos</h3>
+          <p>Expressão de emoções em Libras.</p>
+        </div>
+        <div class="cat-card" style="--cat-color:var(--blue)">
+          <div class="tag">10 CARTAS</div>
+          <h3>Rotina Diária</h3>
+          <p>Verbos e ações cotidianas.</p>
+        </div>
+        <div class="cat-card" style="--cat-color:var(--green)">
+          <div class="tag">10 CARTAS</div>
+          <h3>Lugares e Situações do Dia a Dia</h3>
+          <p>Vocabulário de localização e situações comuns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="who">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Pra quem é</div>
+        <h2>Se você se reconhece em algum desses pontos, o baralho é pra você</h2>
+      </div>
+      <ul class="checklist">
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#E3A72B"/><path d="M5 9.2L7.6 12L13 5.8" stroke="#172341" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Está aprendendo Libras e quer praticar sem depender de vídeo o tempo todo.</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#E3A72B"/><path d="M5 9.2L7.6 12L13 5.8" stroke="#172341" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>É professor e quer uma dinâmica pronta pra sala — embaralha, aluno tira a carta, aula ganha ritmo.</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#E3A72B"/><path d="M5 9.2L7.6 12L13 5.8" stroke="#172341" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Tem filho, aluno ou familiar surdo e quer aprender sinais do dia a dia rapidamente.</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#E3A72B"/><path d="M5 9.2L7.6 12L13 5.8" stroke="#172341" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Já estudou o alfabeto manual e quer expandir o vocabulário de forma organizada.</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#E3A72B"/><path d="M5 9.2L7.6 12L13 5.8" stroke="#172341" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Enjoa de treinar sempre os mesmos sinais soltos — a aleatoriedade das cartas varia a prática.</li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#E3A72B"/><path d="M5 9.2L7.6 12L13 5.8" stroke="#172341" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Aprende melhor vendo e repetindo do que só assistindo vídeo.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="como-funciona">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">Como funciona</div>
+        <h2>Do pagamento à primeira carta</h2>
+      </div>
+      <div class="how">
+        <div class="how-item">
+          <h3>Compra</h3>
+          <p>Pagamento único, recebe o PDF na hora.</p>
+        </div>
+        <div class="how-item">
+          <h3>Imprime e recorta</h3>
+          <p>60 cartas em formato A6, prontas pra folha A4.</p>
+        </div>
+        <div class="how-item">
+          <h3>Embaralha e tira uma carta</h3>
+          <p>Pratica o sinal que caiu, sozinho ou em turma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="recebe" style="background:var(--paper-dim);">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">O que você recebe</div>
+        <h2>Tudo pronto pra imprimir hoje</h2>
+      </div>
+      <ul class="receive">
+        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>60 cartas em PDF, prontas pra imprimir em casa</li>
+        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>6 categorias, 10 cartas cada</li>
+        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sinal ilustrado com configuração de mão clara em cada carta</li>
+        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Formato A6 — 4 cartas por folha A4</li>
+        <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem necessidade de vídeo ou aplicativo</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="bonus">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">De brinde</div>
+        <h2>Dois bônus inclusos no baralho</h2>
+      </div>
+      <div class="bonuses">
+        <div class="bonus">
+          <span class="badge">BÔNUS 1</span>
+          <h3>Guia de Configurações de Mão Básicas</h3>
+          <p>Um guia rápido com as principais configurações de mão usadas em Libras, pra você entender a lógica por trás dos sinais e não só decorar cada um isoladamente.</p>
+          <div class="price-row"><span class="old">R$ 16,90</span><span class="new">Incluso no baralho</span></div>
+        </div>
+        <div class="bonus">
+          <span class="badge">BÔNUS 2</span>
+          <h3>Cartaz do Alfabeto Manual para Colar na Parede</h3>
+          <p>Um cartaz com o alfabeto manual completo, ilustrado, pronto pra colar como referência visual constante enquanto você pratica com o baralho.</p>
+          <div class="price-row"><span class="old">R$ 15,90</span><span class="new">Incluso no baralho</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="oferta">
+    <div class="wrap">
+      <div class="offer">
+        <div>
+          <h2>Tudo isso por R$ 9,90</h2>
+          <ul class="offer-list">
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>60 cartas de sinais de Libras em PDF</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bloco Cumprimentos e Apresentação — 10 cartas completas</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bloco Família — 10 cartas completas</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bloco Alimentos — 10 cartas completas</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bloco Sentimentos — 10 cartas completas</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bloco Rotina Diária — 10 cartas completas</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bloco Lugares e Situações do Dia a Dia — 10 cartas completas</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Formato A6 pronto pra imprimir</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bônus 1 — Guia de Configurações de Mão Básicas</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bônus 2 — Cartaz do Alfabeto Manual para Colar na Parede</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Entrega imediata por e-mail</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.3 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Garantia incondicional de 7 dias</li>
+          </ul>
+        </div>
+        <div class="price-box">
+          <div class="from">De R$ 44,60</div>
+          <div class="to"><sup>R$</sup>9,90</div>
+          <div class="installment">pagamento único</div>
+          <a class="btn" href="https://pay.cakto.com.br/j425xky_1080063">Quero o baralho — R$ 9,90</a>
+          <div class="guarantee">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L14 3.5V7.5C14 11 11.5 13.7 8 15C4.5 13.7 2 11 2 7.5V3.5L8 1Z" stroke="#4B5468" stroke-width="1.3"/></svg>
+            Garantia de 7 dias. Não gostou, o dinheiro volta.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Baralho de Sinais de Libras por Categoria — material digital de apoio ao aprendizado de Libras. Entrega por e-mail após a confirmação do pagamento.
+</footer>
+
+</body>
+</html>
